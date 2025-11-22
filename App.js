@@ -1,11 +1,105 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-const { useState } = require('react');
+import React, { useState } from 'react';
 
 export default function App() {
   // small local import so we don't need to change top-level imports
 
   const [active, setActive] = useState('User');
+
+  const API = 'http://localhost:8082';
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [charNome, setCharNome] = useState('');
+  const [charLvl, setCharLvl] = useState('');
+  const [charOuro, setCharOuro] = useState('');
+  const [charXp, setCharXp] = useState('');
+  const [charArma, setCharArma] = useState('');
+  const [itemNome, setItemNome] = useState('');
+  const [itemPreco, setItemPreco] = useState('');
+  const [itemRaridade, setItemRaridade] = useState('');
+  const [invItens, setInvItens] = useState('');
+  const [invLote, setInvLote] = useState('');
+  const [invOuro, setInvOuro] = useState('');
+  const [armaNome, setArmaNome] = useState('');
+  const [armaLvl, setArmaLvl] = useState('');
+  const [armaPreco, setArmaPreco] = useState('');
+  const [armaDano, setArmaDano] = useState('');
+  const [armaRaridade, setArmaRaridade] = useState('');
+  const [bauLote, setBauLote] = useState('');
+  const [bauItem, setBauItem] = useState('');
+
+    const cadastrarUser = async () => {
+      const body = { email, senha };
+        await fetch(`${API}/user`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    };
+
+    const cadastrarChar = async () => {
+      const body = {
+        nome: charNome,
+        lvl: charLvl,
+        ouro: charOuro,
+        xp: charXp,
+        arma_atual: charArma
+        };
+        await fetch(`${API}/char`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    };
+
+    const cadastrarItem = async () => {
+      const body = { nome: itemNome, preco: itemPreco, raridade: itemRaridade };
+        await fetch(`${API}/item`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    };
+
+    const cadastrarInventario = async () => {
+      const body = {
+        itens: invItens,
+        lote_total: invLote,
+        ouro: invOuro,
+        preenchido: 0,
+          };
+          await fetch(`${API}/inventario`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+      });
+    };
+
+    const cadastrarArma = async () => {
+      const body = {
+        nome: armaNome,
+        lvl: armaLvl,
+        preco: armaPreco,
+        dano: armaDano,
+        raridade: armaRaridade
+        };
+        await fetch(`${API}/arma`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    };
+
+    const cadastrarBau = async () => {
+      const body = { lote_total: bauLote, itens: bauItem }; 
+        await fetch(`${API}/bau`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    };
 
   return (
     <View style={styles.container}>
@@ -21,9 +115,9 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>User</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Email" />
-            <TextInput style={styles.input} placeholder="Senha" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
+            <TextInput style={styles.input} placeholder="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} />
+            <Text style={styles.enviar} onPress={cadastrarUser}> Criar</Text>
           </View>
         </View>
       )}
@@ -32,12 +126,12 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>Char</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Arma1" />
-            <TextInput style={styles.input} placeholder="lvl" />
-            <TextInput style={styles.input} placeholder="nome" />
-            <TextInput style={styles.input} placeholder="ouro" />
-            <TextInput style={styles.input} placeholder="xp" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="Arma1" value={charArma} onChangeText={setCharArma} />
+            <TextInput style={styles.input} placeholder="lvl" value={charLvl} onChangeText={setCharLvl} />
+            <TextInput style={styles.input} placeholder="nome" value={charNome} onChangeText={setCharNome} />
+            <TextInput style={styles.input} placeholder="ouro" value={charOuro} onChangeText={setCharOuro} />
+            <TextInput style={styles.input} placeholder="xp" value={charXp} onChangeText={setCharXp} />
+            <Text style={styles.enviar} onPress={cadastrarChar}> Criar</Text>
           </View>
         </View>
       )}
@@ -46,10 +140,10 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>Item</Text>
           <View>
-            <TextInput style={styles.input} placeholder="nome" />
-            <TextInput style={styles.input} placeholder="preco" />
-            <TextInput style={styles.input} placeholder="raridade" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="nome" value={itemNome} onChangeText={setItemNome} />
+            <TextInput style={styles.input} placeholder="preco" value={itemPreco} onChangeText={setItemPreco} />
+            <TextInput style={styles.input} placeholder="raridade" value={itemRaridade} onChangeText={setItemRaridade} />
+            <Text style={styles.enviar} onPress={cadastrarItem}> Criar</Text>
           </View>
         </View>
       )}
@@ -58,10 +152,10 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>Inventario</Text>
           <View>
-            <TextInput style={styles.input} placeholder="itens" />
-            <TextInput style={styles.input} placeholder="lote Total" />
-            <TextInput style={styles.input} placeholder="ouro" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="itens" value={invItens} onChangeText={setInvItens} />
+            <TextInput style={styles.input} placeholder="lote Total" value={invLote} onChangeText={setInvLote} />
+            <TextInput style={styles.input} placeholder="ouro" value={invOuro} onChangeText={setInvOuro} />
+            <Text style={styles.enviar} onPress={cadastrarInventario}> Criar</Text>
           </View>
         </View>
       )}
@@ -70,12 +164,12 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>Arma</Text>
           <View>
-            <TextInput style={styles.input} placeholder="dano" />
-            <TextInput style={styles.input} placeholder="lvl"/>
-            <TextInput style={styles.input} placeholder="nome" />
-            <TextInput style={styles.input} placeholder="preço" />
-            <TextInput style={styles.input} placeholder="raridade" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="dano" value={armaDano} onChangeText={setArmaDano} />
+            <TextInput style={styles.input} placeholder="lvl" value={armaLvl} onChangeText={setArmaLvl} />
+            <TextInput style={styles.input} placeholder="nome" value={armaNome} onChangeText={setArmaNome} />
+            <TextInput style={styles.input} placeholder="preço" value={armaPreco} onChangeText={setArmaPreco} />
+            <TextInput style={styles.input} placeholder="raridade" value={armaRaridade} onChangeText={setArmaRaridade} />
+            <Text style={styles.enviar} onPress={cadastrarArma}> Criar</Text>
           </View>
         </View>
       )}
@@ -84,9 +178,9 @@ export default function App() {
         <View style={styles.aba}>
           <Text style={styles.userText}>Bau</Text>
           <View>
-            <TextInput style={styles.input} placeholder="lote Total" />
-            <TextInput style={styles.input} placeholder="Item" />
-            <Text style={styles.enviar}> Criar</Text>
+            <TextInput style={styles.input} placeholder="lote Total" value={bauLote} onChangeText={setBauLote} />
+            <TextInput style={styles.input} placeholder="Item" value={bauItem} onChangeText={setBauItem} />
+            <Text style={styles.enviar} onPress={cadastrarBau}> Criar</Text>
           </View>
         </View>
       )}

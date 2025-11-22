@@ -1,1 +1,4 @@
 npm i neo4j-driver@~5.28.0
+npm install express neo4j-driver
+node --experimental-modules server.js --precisa estar ligado junto com o App.js
+npm install express neo4j-driver cors
