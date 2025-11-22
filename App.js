@@ -14,6 +14,8 @@ export default function App() {
         <Text onPress={() => setActive('Char')} style={{...styles.botaoAba, marginHorizontal:6, fontWeight: active === 'Char' ? '700' : '400', backgroundColor: active === 'Char' ? '#b5c6ffff' : 'transparent',}}>Char</Text>
         <Text onPress={() => setActive('Item')} style={{...styles.botaoAba, marginHorizontal:6, fontWeight: active === 'Item' ? '700' : '400', backgroundColor: active === 'Item' ? '#b5c6ffff' : 'transparent',}}>Item</Text>
         <Text onPress={() => setActive('Inventario')} style={{...styles.botaoAba, marginHorizontal:6, fontWeight: active === 'Inventario' ? '700' : '400', backgroundColor: active === 'Inventario' ? '#b5c6ffff' : 'transparent',}}>Inventario</Text>
+        <Text onPress={() => setActive('Arma')} style={{...styles.botaoAba, marginHorizontal:6, fontWeight: active === 'Arma' ? '700' : '400', backgroundColor: active === 'Arma' ? '#b5c6ffff' : 'transparent',}}>Arma</Text>
+        <Text onPress={() => setActive('Bau')} style={{...styles.botaoAba, marginHorizontal:6, fontWeight: active === 'Bau' ? '700' : '400', backgroundColor: active === 'Bau' ? '#b5c6ffff' : 'transparent',}}>Bau</Text>
       </View>
       {active === 'User' && (
         <View style={styles.aba}>
@@ -59,6 +61,29 @@ export default function App() {
           </View>
         </View>
       )}
+
+      {active === 'Arma' && (
+        <View style={styles.aba}>
+          <Text style={styles.userText}>Arma</Text>
+          <View>
+            <TextInput style={styles.input} placeholder="dano" />
+            <TextInput style={styles.input} placeholder="lvl"/>
+            <TextInput style={styles.input} placeholder="nome" />
+            <TextInput style={styles.input} placeholder="preço" />
+            <TextInput style={styles.input} placeholder="raridade" />
+          </View>
+        </View>
+      )}
+      
+      {active === 'Bau' && (
+        <View style={styles.aba}>
+          <Text style={styles.userText}>Bau</Text>
+          <View>
+            <TextInput style={styles.input} placeholder="lote Total" />
+            <TextInput style={styles.input} placeholder="Item" />
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -73,8 +98,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   aba: {
-    height: '60%',
-    width: '60%',
+    height: '70%',
+    width: '70%',
     backgroundColor: '#9896c3ff',
     justifyContent: 'center',
     borderRadius: 20,
@@ -98,7 +123,7 @@ const styles = StyleSheet.create({
   buttonContainer:{
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '50%',
+    width: '60%',
     marginBottom: 20,
   },
   botaoAba:{
