@@ -23,7 +23,7 @@ export default function App() {
           <View>
             <TextInput style={styles.input} placeholder="Email" />
             <TextInput style={styles.input} placeholder="Senha" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
@@ -37,7 +37,7 @@ export default function App() {
             <TextInput style={styles.input} placeholder="nome" />
             <TextInput style={styles.input} placeholder="ouro" />
             <TextInput style={styles.input} placeholder="xp" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
@@ -49,7 +49,7 @@ export default function App() {
             <TextInput style={styles.input} placeholder="nome" />
             <TextInput style={styles.input} placeholder="preco" />
             <TextInput style={styles.input} placeholder="raridade" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
@@ -61,7 +61,7 @@ export default function App() {
             <TextInput style={styles.input} placeholder="itens" />
             <TextInput style={styles.input} placeholder="lote Total" />
             <TextInput style={styles.input} placeholder="ouro" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
@@ -75,7 +75,7 @@ export default function App() {
             <TextInput style={styles.input} placeholder="nome" />
             <TextInput style={styles.input} placeholder="preço" />
             <TextInput style={styles.input} placeholder="raridade" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
@@ -86,7 +86,7 @@ export default function App() {
           <View>
             <TextInput style={styles.input} placeholder="lote Total" />
             <TextInput style={styles.input} placeholder="Item" />
-            <Text style={styles.enviar}> Enviar</Text>
+            <Text style={styles.enviar}> Criar</Text>
           </View>
         </View>
       )}
