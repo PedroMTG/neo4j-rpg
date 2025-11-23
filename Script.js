@@ -1,155 +1,88 @@
-const populate = async () => {
+import neo4j from 'neo4j-driver';
+
+const driver = neo4j.driver(
+  "neo4j+s://b0b555ea.databases.neo4j.io",
+  neo4j.auth.basic("neo4j", "PIlduKPLB2bzb6F6SIsEBEfCN8wjvZWUfJAAc_fMrXs")
+);
+
+async function populate() {
   try {
-    const URI = 'neo4j+s://b0b555ea.databases.neo4j.io'
-    const USER = 'neo4j'
-    const PASSWORD = 'PIlduKPLB2bzb6F6SIsEBEfCN8wjvZWUfJAAc_fMrXs'
-    let driver = neo4j.driver(URI, neo4j.auth.basic(USER, PASSWORD))
-    const serverInfo = await driver.getServerInfo()
-    console.log('Connection established')
-    console.log(serverInfo)
 
     let { records: r1, summary: s1 } = await driver.executeQuery(`
-      CREATE (c:Char {arma_atual: "", lvl: "", ouro: "", xp: "", nome: ""})
-      CREATE (a:Arma {preco: 0, dano: 0, lvl: "", raridade: "", nome: ""})
+      CREATE (c:Char {nome: "Arthorius", lvl: 12, ouro: 320, xp: 1500, arma_atual: "Espada Longa"})
+      CREATE (a:Arma {nome: "Espada Longa", dano: 25, lvl: 10, raridade: "Raro", preco: 150})
       CREATE (c)-[:PEGA]->(a)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #1 -> ${s1.counters.updates().nodesCreated} nodes em ${s1.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #1 -> OK`);
 
-
-    
-    let { records: r2, summary: s2 } = await driver.executeQuery(`
-      CREATE (c:Char {arma_atual: "", lvl: "", ouro: "", xp: "", nome: ""})
-      CREATE (m:Mob {dano: 0, lvl: 0, hp: 0, nome: "", xp_recebido: 0})
+    let { summary: s2 } = await driver.executeQuery(`
+      CREATE (c:Char {nome: "Lyra", lvl: 8, ouro: 120, xp: 780, arma_atual: "Arco de Caça"})
+      CREATE (m:Mob {nome: "Goblin Guerreiro", lvl: 5, hp: 60, dano: 10, xp_recebido: 50})
       CREATE (c)-[:MATA]->(m)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #2 -> ${s2.counters.updates().nodesCreated} nodes em ${s2.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #2 -> OK`);
 
-
-  
-    let { records: r3, summary: s3 } = await driver.executeQuery(`
-      CREATE (c:Char {arma_atual: "", lvl: "", ouro: "", xp: "", nome: ""})
-      CREATE (i:Inventario {lote_total: 0, itens: "", preenchido: 0, ouro: 0})
+    let { summary: s3 } = await driver.executeQuery(`
+      CREATE (c:Char {nome: "Darian", lvl: 6, ouro: 80, xp: 420, arma_atual: "Machado Enferrujado"})
+      CREATE (i:Inventario {lote_total: 20, itens: "Poção de Cura, Poção de Mana", preenchido: 2, ouro: 80})
       CREATE (c)-[:ACESSA]->(i)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #3 -> ${s3.counters.updates().nodesCreated} nodes em ${s3.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #3 -> OK`);
 
- 
-
-    let { records: r4, summary: s4 } = await driver.executeQuery(`
-      CREATE (u:User {senha: "", email: ""})
-      CREATE (c:Char {arma_atual: "", lvl: "", ouro: "", xp: "", nome: ""})
+    let { summary: s4 } = await driver.executeQuery(`
+      CREATE (u:User {email: "teste123@email.com"})
+      CREATE (c:Char {nome: "Ragnar", lvl: 15, ouro: 500, xp: 2100, arma_atual: "Machado de Guerra"})
       CREATE (u)-[:CRIA]->(c)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #4 -> ${s4.counters.updates().nodesCreated} nodes em ${s4.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #4 -> OK`);
 
-
-    
-    let { records: r5, summary: s5 } = await driver.executeQuery(`
-      CREATE (a:Arma {preco: 0, dano: 0, lvl: "", raridade: "", nome: ""})
-      CREATE (b:Bau {lote_total: 0, itens: "", preenchido: 0})
+    let { summary: s5 } = await driver.executeQuery(`
+      CREATE (a:Arma {nome: "Adaga Sombria", dano: 15, lvl: 5, raridade: "Épico", preco: 300})
+      CREATE (b:Bau {lote_total: 10, itens: "Adaga Sombria", preenchido: 1})
       CREATE (a)-[:GUARDADA_NO]->(b)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #5 -> ${s5.counters.updates().nodesCreated} nodes em ${s5.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #5 -> OK`);
 
-
-    
-    let { records: r6, summary: s6 } = await driver.executeQuery(`
-      CREATE (m:Mob {dano: 0, lvl: 0, hp: 0, nome: "", xp_recebido: 0})
-      CREATE (a:Arma {preco: 0, dano: 0, lvl: "", raridade: "", nome: ""})
+    let { summary: s6 } = await driver.executeQuery(`
+      CREATE (m:Mob {nome: "Esqueleto Arqueiro", hp: 40, dano: 12, lvl: 4, xp_recebido: 35})
+      CREATE (a:Arma {nome: "Arco de Ossos", dano: 18, lvl: 4, raridade: "Comum", preco: 80})
       CREATE (m)-[:DROP]->(a)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #6 -> ${s6.counters.updates().nodesCreated} nodes em ${s6.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #6 -> OK`);
 
-    
-
-    let { records: r7, summary: s7 } = await driver.executeQuery(`
-      CREATE (m:Mob {dano: 0, lvl: 0, hp: 0, nome: "", xp_recebido: 0})
-      CREATE (i:Item {preco: 0, lvl: "", raridade: "", nome: ""})
+    let { summary: s7 } = await driver.executeQuery(`
+      CREATE (m:Mob {nome: "Slime Verde", dano: 5, lvl: 2, hp: 30, xp_recebido: 15})
+      CREATE (i:Item {nome: "Geléia Mística", raridade: "Comum", lvl: 1, preco: 5})
       CREATE (m)-[:DROP]->(i)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #7 -> ${s7.counters.updates().nodesCreated} nodes em ${s7.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #7 -> OK`);
 
-    
-
-    let { records: r8, summary: s8 } = await driver.executeQuery(`
-      CREATE (i:Item {preco: 0, lvl: "", raridade: "", nome: ""})
-      CREATE (inv:Inventario {lote_total: 0, itens: "", preenchido: 0, ouro: 0})
+    let { summary: s8 } = await driver.executeQuery(`
+      CREATE (i:Item {nome: "Poção de Cura", raridade: "Comum", lvl: 1, preco: 20})
+      CREATE (inv:Inventario {lote_total: 10, itens: "Poção de Cura", preenchido: 1, ouro: 50})
       CREATE (i)-[:GUARDADA_NO]->(inv)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #8 -> ${s8.counters.updates().nodesCreated} nodes em ${s8.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #8 -> OK`);
 
-    
-
-    let { records: r9, summary: s9 } = await driver.executeQuery(`
-      CREATE (i:Item {preco: 0, lvl: "", raridade: "", nome: ""})
-      CREATE (c:Char {arma_atual: "", lvl: "", ouro: "", xp: "", nome: ""})
+    let { summary: s9 } = await driver.executeQuery(`
+      CREATE (i:Item {nome: "Elixir de Força", raridade: "Raro", lvl: 6, preco: 200})
+      CREATE (c:Char {nome: "Mira", lvl: 9, ouro: 200, xp: 1100, arma_atual: "Faca Curvada"})
       CREATE (i)-[:RECEBE]->(c)
     `, {}, { database: "neo4j" });
 
-    console.log(
-      `CREATE #9 -> ${s9.counters.updates().nodesCreated} nodes em ${s9.resultAvailableAfter} ms.`
-    );
+    console.log(`CREATE #9 -> OK`);
 
-
-
-    // RELACIONAMENTOS
-
-
-    
-    let { records: m1, summary: sm1 } = await driver.executeQuery(`
-      MATCH (c:Char)-[:PEGA]->(a:Arma)
-      RETURN c, a
-    `, {}, { database: "neo4j" });
-
-    console.log(
-      `MATCH #1 -> ${m1.length} linhas em ${sm1.resultAvailableAfter} ms.`
-    );
-
- 
-
-    let { records: m2, summary: sm2 } = await driver.executeQuery(`
-      MATCH (u:User)-[:CRIA]->(c:Char)
-      RETURN u.email AS email, c.nome AS char
-    `, {}, { database: "neo4j" });
-
-    console.log(
-      `MATCH #2 -> ${m2.length} linhas em ${sm2.resultAvailableAfter} ms.`
-    );
-
-
-    
-    let { records: m3, summary: sm3 } = await driver.executeQuery(`
-      MATCH (i:Item)-[:GUARDADA_NO]->(inv:Inventario)
-      RETURN i.nome AS item, inv.lote_total AS lotes
-    `, {}, { database: "neo4j" });
-
-    console.log(
-      `MATCH #3 -> ${m3.length} linhas em ${sm3.resultAvailableAfter} ms.`
-    );
+    await driver.executeQuery(`MATCH (c:Char)-[:PEGA]->(a:Arma) RETURN c, a`);
+    await driver.executeQuery(`MATCH (u:User)-[:CRIA]->(c:Char) RETURN u, c`);
+    await driver.executeQuery(`MATCH (i:Item)-[:GUARDADA_NO]->(inv:Inventario) RETURN i, inv`);
 
     console.log("Populate completo!");
 
